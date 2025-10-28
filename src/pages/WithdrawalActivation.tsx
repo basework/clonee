@@ -4,24 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Upload, Loader2 } from "lucide-react";
+import { ArrowLeft, Upload, Loader2, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
 import { CopyButton } from "@/components/CopyButton";
 
-const UpgradePayment = () => {
+const WithdrawalActivation = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const tier = location.state as any;
+  const withdrawalCount = location.state?.withdrawalCount || 0;
 
   const [receipt, setReceipt] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-
-  if (!tier) {
-    navigate("/upgrade");
-    return null;
-  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -45,22 +40,18 @@ const UpgradePayment = () => {
         return;
       }
 
-      // For now, we'll just store the upgrade request without actual file upload
-      // In production, you'd upload to Supabase Storage
-      const { error } = await supabase.from("upgrades").insert({
+      const { error } = await supabase.from("withdrawal_activation_payments").insert({
         user_id: session.user.id,
-        upgrade_level: tier.level,
-        amount: tier.amount,
-        price: tier.price,
+        amount: 6650,
         status: "pending",
       });
 
       if (error) throw error;
 
-      toast.success("Upgrade request submitted!");
-      navigate("/upgrade-pending");
+      toast.success("Activation payment submitted! Awaiting approval.");
+      navigate("/gateway-pending");
     } catch (error: any) {
-      toast.error("Failed to submit upgrade request");
+      toast.error("Failed to submit activation payment");
     } finally {
       setUploading(false);
     }
@@ -73,29 +64,29 @@ const UpgradePayment = () => {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate("/upgrade")}
+            onClick={() => navigate("/withdraw")}
             className="text-primary-foreground hover:bg-background/20"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="text-2xl font-bold">Complete Payment</h1>
+          <h1 className="text-2xl font-bold">Withdrawal Activation</h1>
         </div>
       </div>
 
       <div className="p-6 space-y-6">
         <Card className="bg-gradient-to-br from-card to-card/80 backdrop-blur-lg border-border/50 p-6">
-          <h2 className={`text-2xl font-bold mb-4 bg-gradient-to-r ${tier.color} bg-clip-text text-transparent`}>
-            {tier.level} Upgrade
-          </h2>
-          <div className="space-y-2 mb-6">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Earnings per referral:</span>
-              <span className="font-bold">₦{tier.amount.toLocaleString()}</span>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <CheckCircle2 className="w-6 h-6 text-primary" />
             </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Upgrade price:</span>
-              <span className="font-bold text-primary">₦{tier.price.toLocaleString()}</span>
+            <div>
+              <h2 className="text-xl font-bold">Withdrawal #{withdrawalCount + 1}</h2>
+              <p className="text-sm text-muted-foreground">Activation required after 5 withdrawals</p>
             </div>
+          </div>
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <p className="text-sm text-muted-foreground mb-2">One-time Activation Fee</p>
+            <p className="text-3xl font-bold text-primary">₦6,650</p>
           </div>
         </Card>
 
@@ -104,7 +95,7 @@ const UpgradePayment = () => {
           <div className="space-y-3 text-sm mb-6">
             <p className="flex gap-2">
               <span className="font-bold">1.</span>
-              <span>Transfer ₦{tier.price.toLocaleString()} to the account details below</span>
+              <span>Transfer ₦6,650 to the account details below</span>
             </p>
             <div className="bg-muted/50 p-4 rounded-lg space-y-2">
               <p className="text-sm font-semibold">Bank Details</p>
@@ -169,4 +160,4 @@ const UpgradePayment = () => {
   );
 };
 
-export default UpgradePayment;
+export default WithdrawalActivation;

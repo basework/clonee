@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, CheckCircle2, Clock } from "lucide-react";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
+import { toast } from "sonner";
 
 const Tasks = () => {
   const navigate = useNavigate();
@@ -14,29 +15,45 @@ const Tasks = () => {
       description: "Join our official Telegram channel for updates",
       reward: "₦5,000",
       status: "available",
+      link: "https://t.me/officialbluepay2025",
     },
     {
       id: 2,
+      title: "Join WhatsApp Group",
+      description: "Join our WhatsApp community for instant updates",
+      reward: "₦5,000",
+      status: "available",
+      link: "https://chat.whatsapp.com/G24PrH7JVABBhXsC8knGFC",
+    },
+    {
+      id: 3,
       title: "Complete Profile",
       description: "Fill out your profile information",
       reward: "₦2,000",
       status: "available",
     },
     {
-      id: 3,
+      id: 4,
       title: "Make First Referral",
       description: "Invite your first friend to Chixx9ja",
       reward: "₦10,000",
       status: "available",
     },
     {
-      id: 4,
+      id: 5,
       title: "Daily Check-in",
       description: "Login daily for 7 consecutive days",
       reward: "₦15,000",
       status: "pending",
     },
   ];
+
+  const handleTaskClick = (task: typeof tasks[0]) => {
+    if (task.link && task.status === "available") {
+      window.open(task.link, "_blank", "noopener,noreferrer");
+      toast.success("Task started! Complete it to earn your reward.");
+    }
+  };
 
   return (
     <div className="min-h-screen liquid-bg pb-20">
@@ -75,9 +92,12 @@ const Tasks = () => {
               </div>
               <div className="flex flex-col items-center gap-2">
                 {task.status === "available" ? (
-                  <Button size="sm" className="bg-gradient-to-r from-primary to-secondary">
+                  <button
+                    onClick={() => handleTaskClick(task)}
+                    className="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-md text-sm font-medium hover:opacity-90 transition-all touch-manipulation min-h-[36px]"
+                  >
                     Start
-                  </Button>
+                  </button>
                 ) : task.status === "pending" ? (
                   <div className="flex items-center gap-1 text-yellow-500">
                     <Clock className="w-4 h-4" />

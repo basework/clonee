@@ -4,24 +4,31 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { ArrowLeft, DollarSign } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const Withdraw = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [requireReferrals, setRequireReferrals] = useState(false);
   const [withdrawData, setWithdrawData] = useState({
     amount: "",
     accountName: "",
     accountNumber: "",
     bankName: "",
   });
+
+  const nigerianBanks = [
+    "Access Bank", "Citibank", "Ecobank", "FCMB", "Fidelity Bank",
+    "First Bank", "GTBank", "Heritage Bank", "Keystone Bank", "Kuda Bank",
+    "Opay", "Palmpay", "Polaris Bank", "Providus Bank", "Stanbic IBTC",
+    "Standard Chartered", "Sterling Bank", "SunTrust Bank", "UBA", "Union Bank",
+    "Unity Bank", "Wema Bank", "Zenith Bank", "Moniepoint MFB", "VFD MFB"
+  ].sort();
 
   const MINIMUM_WITHDRAW = 120000;
 
@@ -68,17 +75,15 @@ const Withdraw = () => {
       return;
     }
     
-    // When toggle is OFF (requireReferrals = false), enforce minimum and referral requirement
-    if (!requireReferrals) {
-      if (amount < MINIMUM_WITHDRAW) {
-        toast.error(`Minimum withdrawal is ₦${MINIMUM_WITHDRAW.toLocaleString()}`);
-        return;
-      }
-      
-      if (profile.total_referrals < 5) {
-        toast.error("You need at least 5 referrals to withdraw");
-        return;
-      }
+    // Enforce minimum and referral requirement
+    if (amount < MINIMUM_WITHDRAW) {
+      toast.error(`Minimum withdrawal is ₦${MINIMUM_WITHDRAW.toLocaleString()}`);
+      return;
+    }
+    
+    if (profile.total_referrals < 5) {
+      toast.error("You need at least 5 referrals to withdraw");
+      return;
     }
 
     if (amount > profile.balance) {
@@ -90,14 +95,21 @@ const Withdraw = () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
 
-      const { data: withdrawalData, error } = await supabase.from("withdrawals").insert({
+      // Check if user needs to pay activation fee (after 5 withdrawals)
+      if (profile.withdrawal_count >= 5 && !profile.activation_paid) {
+        toast.info("After 5 withdrawals, activation fee required");
+        navigate("/withdrawal-activation", { state: { withdrawalCount: profile.withdrawal_count } });
+        return;
+      }
+
+      const { error } = await supabase.from("withdrawals").insert({
         user_id: session?.user.id,
         amount,
         account_name: withdrawData.accountName,
         account_number: withdrawData.accountNumber,
         bank_name: withdrawData.bankName,
         status: "pending",
-      }).select().single();
+      });
 
       if (error) throw error;
 
@@ -113,13 +125,7 @@ const Withdraw = () => {
       // DO NOT update balance - wait for admin approval
 
       toast.success("Withdrawal request submitted! Awaiting approval.");
-      
-      // If toggle is ON, redirect to gateway activation
-      if (requireReferrals) {
-        navigate("/gateway-activation", { state: { withdrawalId: withdrawalData.id } });
-      } else {
-        navigate("/history");
-      }
+      navigate("/history");
     } catch (error: any) {
       toast.error("Failed to submit withdrawal");
     } finally {
@@ -156,44 +162,32 @@ const Withdraw = () => {
           </div>
 
           <form onSubmit={handleWithdraw} className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
-              <div>
-                <Label htmlFor="require-referrals">Enable Gateway Activation</Label>
-                <p className="text-xs text-muted-foreground">Toggle to withdraw any amount (requires ₦13,250 activation fee)</p>
-              </div>
-              <Switch
-                id="require-referrals"
-                checked={requireReferrals}
-                onCheckedChange={setRequireReferrals}
-              />
-            </div>
-
-            {requireReferrals && (
-              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                <p className="text-sm text-blue-600 dark:text-blue-400">
-                  ✓ Gateway activation allows you to withdraw any amount without restrictions. You'll pay a one-time ₦13,250 activation fee after submitting your withdrawal.
+            {profile.total_referrals < 5 && (
+              <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                <p className="text-sm text-yellow-600 dark:text-yellow-400">
+                  You have {profile.total_referrals} referrals. You need {5 - profile.total_referrals} more to withdraw.
                 </p>
               </div>
             )}
 
-            {!requireReferrals && profile.total_referrals < 5 && (
-              <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-                <p className="text-sm text-yellow-600 dark:text-yellow-400">
-                  You have {profile.total_referrals} referrals. You need {5 - profile.total_referrals} more to withdraw, or enable Gateway Activation above.
+            {profile.withdrawal_count >= 5 && !profile.activation_paid && (
+              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                <p className="text-sm text-blue-600 dark:text-blue-400">
+                  ⚠️ After 5 withdrawals, you need to pay a one-time activation fee of ₦6,650 to continue withdrawing.
                 </p>
               </div>
             )}
 
             <div className="space-y-2">
               <Label htmlFor="amount">
-                Amount (₦) {!requireReferrals && `(Min: ₦${MINIMUM_WITHDRAW.toLocaleString()})`}
+                Amount (₦) (Min: ₦{MINIMUM_WITHDRAW.toLocaleString()})
               </Label>
               <Input
                 id="amount"
                 type="number"
                 required
                 step="1"
-                min={requireReferrals ? 1 : MINIMUM_WITHDRAW}
+                min={MINIMUM_WITHDRAW}
                 max={Math.floor(profile.balance)}
                 value={withdrawData.amount}
                 onChange={(e) => setWithdrawData({ ...withdrawData, amount: e.target.value })}
@@ -229,14 +223,22 @@ const Withdraw = () => {
 
             <div className="space-y-2">
               <Label htmlFor="bankName">Bank Name</Label>
-              <Input
-                id="bankName"
-                type="text"
-                required
+              <Select
                 value={withdrawData.bankName}
-                onChange={(e) => setWithdrawData({ ...withdrawData, bankName: e.target.value })}
-                className="bg-background/50"
-              />
+                onValueChange={(value) => setWithdrawData({ ...withdrawData, bankName: value })}
+                required
+              >
+                <SelectTrigger className="bg-background/50">
+                  <SelectValue placeholder="Select your bank" />
+                </SelectTrigger>
+                <SelectContent>
+                  {nigerianBanks.map((bank) => (
+                    <SelectItem key={bank} value={bank}>
+                      {bank}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <Button

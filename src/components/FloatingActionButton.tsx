@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu, X, History, Gift, User, DollarSign, MessageCircle, Radio, CheckCircle2 } from "lucide-react";
+import { Menu, X, History, Gift, User, DollarSign, MessageCircle, Radio, CheckCircle2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -14,8 +14,8 @@ export const FloatingActionButton = () => {
     { icon: Gift, label: "Referrals", path: "/referrals" },
     { icon: User, label: "Profile", path: "/profile" },
     { icon: DollarSign, label: "Withdraw", path: "/withdraw" },
-    { icon: Radio, label: "Channel", path: "https://t.me/officialbluepay2025", external: true },
-    { icon: MessageCircle, label: "Support", path: "https://wa.me/2349031234567", external: true },
+    { icon: Users, label: "Community", path: "/community" },
+    { icon: MessageCircle, label: "Support", path: "/support" },
   ];
 
   return (
@@ -39,11 +39,7 @@ export const FloatingActionButton = () => {
                   className="flex items-center justify-start gap-3 hover:bg-muted px-4 py-2 rounded-md transition-colors touch-manipulation cursor-pointer min-h-[44px]"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                   onClick={() => {
-                    if (item.external) {
-                      window.open(item.path, "_blank", "noopener,noreferrer");
-                    } else {
-                      navigate(item.path);
-                    }
+                    navigate(item.path);
                     setIsOpen(false);
                   }}
                 >

@@ -86,6 +86,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          activation_paid: boolean | null
           balance: number | null
           created_at: string | null
           email: string
@@ -96,8 +97,10 @@ export type Database = {
           referred_by: string | null
           total_referrals: number | null
           updated_at: string | null
+          withdrawal_count: number | null
         }
         Insert: {
+          activation_paid?: boolean | null
           balance?: number | null
           created_at?: string | null
           email: string
@@ -108,8 +111,10 @@ export type Database = {
           referred_by?: string | null
           total_referrals?: number | null
           updated_at?: string | null
+          withdrawal_count?: number | null
         }
         Update: {
+          activation_paid?: boolean | null
           balance?: number | null
           created_at?: string | null
           email?: string
@@ -120,6 +125,7 @@ export type Database = {
           referred_by?: string | null
           total_referrals?: number | null
           updated_at?: string | null
+          withdrawal_count?: number | null
         }
         Relationships: [
           {
@@ -209,6 +215,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      withdrawal_activation_payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          receipt_url: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          id?: string
+          receipt_url?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          receipt_url?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       withdrawals: {
         Row: {

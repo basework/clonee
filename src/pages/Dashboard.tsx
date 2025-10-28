@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
 import { PromotionsCarousel } from "@/components/PromotionsCarousel";
 import { ArrowRight } from "lucide-react";
+import { WelcomeModal } from "@/components/WelcomeModal";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -160,6 +161,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen liquid-bg pb-20" style={{ position: 'relative', zIndex: 1 }}>
+      <WelcomeModal />
       {/* Header */}
       <div className="bg-gradient-to-r from-primary to-secondary p-4 text-primary-foreground glow-primary" style={{ pointerEvents: 'auto', position: 'relative', zIndex: 2 }}>
         <div className="flex items-center gap-3">

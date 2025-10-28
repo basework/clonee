@@ -8,11 +8,11 @@ const GatewayPending = () => {
   const navigate = useNavigate();
 
   const openWhatsApp = () => {
-    window.open("https://wa.me/2349031234567", "_blank");
+    window.open("https://wa.me/2347059382766", "_blank", "noopener,noreferrer");
   };
 
   const openTelegram = () => {
-    window.open("https://t.me/chixx9ja_support", "_blank");
+    window.open("https://t.me/Chixx9ja", "_blank", "noopener,noreferrer");
   };
 
   return (

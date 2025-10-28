@@ -8,6 +8,7 @@ import { ArrowLeft, Upload, Loader2, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
+import { CopyButton } from "@/components/CopyButton";
 
 const GatewayActivation = () => {
   const navigate = useNavigate();
@@ -106,7 +107,10 @@ const GatewayActivation = () => {
             <div className="bg-muted/50 p-4 rounded-lg space-y-2">
               <p className="text-sm font-semibold">Bank Details</p>
               <div className="space-y-1 text-sm">
-                <p className="font-mono">Account: 5569742889</p>
+                <div className="flex items-center justify-between">
+                  <p className="font-mono">Account: 5569742889</p>
+                  <CopyButton text="5569742889" />
+                </div>
                 <p>Name: SUNDAY CHINEMEREM LIBERTY</p>
                 <p>Bank: Moniepoint MFB</p>
               </div>
