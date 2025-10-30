@@ -42,7 +42,7 @@ const WithdrawalActivation = () => {
 
       const { error } = await supabase.from("withdrawal_activation_payments").insert({
         user_id: session.user.id,
-        amount: 6650,
+        amount: 6660,
         status: "pending",
         receipt_url: receipt.name,
       });
@@ -75,64 +75,66 @@ const WithdrawalActivation = () => {
       </div>
 
       <div className="p-6 space-y-6">
-        <Card className="bg-gradient-to-br from-card to-card/80 backdrop-blur-lg border-border/50 p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <CheckCircle2 className="w-6 h-6 text-primary" />
+        <Card className="bg-gradient-to-br from-blue-500/10 to-primary/10 backdrop-blur-lg border-blue-500/20 p-6">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="text-2xl">⚡</div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-blue-500 mb-2">Standard Withdrawal Activation</h2>
+              <p className="text-sm text-muted-foreground">
+                Pay a one-time activation fee of ₦6,660 to unlock withdrawals with 5 referrals completed.
+              </p>
             </div>
-            <div>
-              <h2 className="text-xl font-bold">Withdrawal #{withdrawalCount + 1}</h2>
-              <p className="text-sm text-muted-foreground">Activation required after 5 withdrawals</p>
-            </div>
-          </div>
-          <div className="bg-muted/50 p-4 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-2">One-time Activation Fee</p>
-            <p className="text-3xl font-bold text-primary">₦6,650</p>
           </div>
         </Card>
 
         <Card className="bg-card/80 backdrop-blur-lg border-border/50 p-6">
-          <h3 className="font-semibold mb-4">Payment Instructions</h3>
-          <div className="space-y-3 text-sm mb-6">
-            <p className="flex gap-2">
-              <span className="font-bold">1.</span>
-              <span>Transfer ₦6,650 to the account details below</span>
-            </p>
-            <div className="bg-muted/50 p-4 rounded-lg space-y-2">
-              <p className="text-sm font-semibold">Bank Details</p>
-              <div className="space-y-1 text-sm">
-                <div className="flex items-center justify-between">
-                  <p className="font-mono">Account: 8132896637</p>
-                  <CopyButton text="8132896637" />
-                </div>
-                <p>Name: CHIXX9JA SERVICES</p>
-                <p>Bank: Opay</p>
-              </div>
+          <h3 className="text-xl font-bold mb-6">Payment Details</h3>
+          
+          <div className="space-y-4">
+            <div className="bg-muted/50 p-4 rounded-lg">
+              <p className="text-sm text-muted-foreground mb-1">Amount</p>
+              <p className="text-2xl font-bold">₦6,660</p>
             </div>
-            <p className="flex gap-2">
-              <span className="font-bold">2.</span>
-              <span>Upload your payment receipt below</span>
-            </p>
-            <p className="flex gap-2">
-              <span className="font-bold">3.</span>
-              <span>Wait for confirmation (usually within 24 hours)</span>
-            </p>
-          </div>
 
+            <div className="bg-muted/50 p-4 rounded-lg">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-sm text-muted-foreground">Account Number</p>
+                <CopyButton text="6957666738" />
+              </div>
+              <p className="text-xl font-bold font-mono">6957666738</p>
+            </div>
+
+            <div className="bg-muted/50 p-4 rounded-lg">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-sm text-muted-foreground">Account Name</p>
+                <CopyButton text="CHINEMEREM LIBERTY SUNDAY" />
+              </div>
+              <p className="text-lg font-bold">CHINEMEREM LIBERTY SUNDAY</p>
+            </div>
+
+            <div className="bg-muted/50 p-4 rounded-lg">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-sm text-muted-foreground">Bank</p>
+                <CopyButton text="Moniepoint MFB" />
+              </div>
+              <p className="text-lg font-bold">Moniepoint MFB</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="bg-card/80 backdrop-blur-lg border-border/50 p-6">
+          <h3 className="text-lg font-semibold mb-4">Upload Payment Receipt</h3>
+          
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="receipt">Upload Payment Receipt</Label>
-              <div className="flex items-center gap-2">
-                <Input
-                  id="receipt"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="bg-background/50"
-                  required
-                />
-                <Upload className="w-5 h-5 text-muted-foreground" />
-              </div>
+              <Input
+                id="receipt"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="bg-background/50"
+                required
+              />
               {receipt && (
                 <p className="text-sm text-green-500">✓ {receipt.name}</p>
               )}
