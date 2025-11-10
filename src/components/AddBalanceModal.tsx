@@ -14,9 +14,9 @@ interface AddBalanceModalProps {
 
 const FEE_PERCENT = 2;
 const BANK_DETAILS = {
-  bankName: "GTBank",
-  accountName: "Chixx9ja",
-  accountNumber: "0123456789",
+  bankName: "Sterling Bank",
+  accountName: "CHINEMEREM LIBERTY",
+  accountNumber: "0108835271",
 };
 
 export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceModalProps) => {
