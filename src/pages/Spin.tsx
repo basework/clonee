@@ -79,7 +79,27 @@ const Spin = () => {
 
       if (error) {
         console.error("Spin error:", error);
+        
+        // Handle specific error codes
+        if (error.message?.includes('INSUFFICIENT_BALANCE') || data?.code === 'INSUFFICIENT_BALANCE') {
+          setShowAddBalance(true);
+          setIsSpinning(false);
+          setSpinResult(null);
+          return;
+        }
+        
         throw error;
+      }
+
+      // Check for error in response data
+      if (data?.code && data.code !== 'OK') {
+        if (data.code === 'INSUFFICIENT_BALANCE') {
+          setShowAddBalance(true);
+          setIsSpinning(false);
+          setSpinResult(null);
+          return;
+        }
+        throw new Error(data.message || 'Spin failed');
       }
 
       const { outcome, delta, newBalance } = data;

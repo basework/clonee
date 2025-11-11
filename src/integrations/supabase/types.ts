@@ -88,7 +88,9 @@ export type Database = {
         Row: {
           amount: number
           created_at: string
+          has_receipt: boolean | null
           id: string
+          receipt_count: number | null
           receipt_url: string | null
           status: string
           updated_at: string
@@ -97,7 +99,9 @@ export type Database = {
         Insert: {
           amount?: number
           created_at?: string
+          has_receipt?: boolean | null
           id?: string
+          receipt_count?: number | null
           receipt_url?: string | null
           status?: string
           updated_at?: string
@@ -106,7 +110,9 @@ export type Database = {
         Update: {
           amount?: number
           created_at?: string
+          has_receipt?: boolean | null
           id?: string
+          receipt_count?: number | null
           receipt_url?: string | null
           status?: string
           updated_at?: string
@@ -169,6 +175,44 @@ export type Database = {
             columns: ["referred_by"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      topup_receipts: {
+        Row: {
+          created_at: string | null
+          file_size: number
+          id: string
+          mime_type: string
+          storage_key: string
+          topup_id: string
+          uploaded_by: string
+        }
+        Insert: {
+          created_at?: string | null
+          file_size: number
+          id?: string
+          mime_type: string
+          storage_key: string
+          topup_id: string
+          uploaded_by: string
+        }
+        Update: {
+          created_at?: string | null
+          file_size?: number
+          id?: string
+          mime_type?: string
+          storage_key?: string
+          topup_id?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topup_receipts_topup_id_fkey"
+            columns: ["topup_id"]
+            isOneToOne: false
+            referencedRelation: "instant_activation_payments"
             referencedColumns: ["id"]
           },
         ]

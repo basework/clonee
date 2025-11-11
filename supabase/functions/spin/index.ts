@@ -3,19 +3,29 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
 type SpinOutcome = 'WIN' | 'LOSE' | 'TRY_AGAIN'
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders })
+    return new Response(null, { 
+      status: 204,
+      headers: corsHeaders 
+    })
   }
 
   try {
     const authHeader = req.headers.get('Authorization')
     if (!authHeader) {
-      throw new Error('Unauthorized')
+      return new Response(
+        JSON.stringify({ code: 'UNAUTHENTICATED', message: 'Authentication required' }),
+        { 
+          status: 401, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      )
     }
 
     const supabaseClient = createClient(
@@ -36,13 +46,25 @@ Deno.serve(async (req) => {
 
     if (authError || !user) {
       console.error('Auth error:', authError)
-      throw new Error('Unauthorized')
+      return new Response(
+        JSON.stringify({ code: 'UNAUTHENTICATED', message: 'Invalid session' }),
+        { 
+          status: 401, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      )
     }
 
     const { stake } = await req.json()
 
-    if (!stake || stake <= 0) {
-      throw new Error('Invalid stake amount')
+    if (!stake || ![50000, 100000, 150000].includes(stake)) {
+      return new Response(
+        JSON.stringify({ code: 'BAD_STAKE', message: 'Invalid stake amount. Must be 50000, 100000, or 150000' }),
+        { 
+          status: 400, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      )
     }
 
     // Get current balance
@@ -58,7 +80,13 @@ Deno.serve(async (req) => {
 
     // Validate balance
     if (currentBalance < stake) {
-      throw new Error('Insufficient balance')
+      return new Response(
+        JSON.stringify({ code: 'INSUFFICIENT_BALANCE', message: 'Insufficient balance' }),
+        { 
+          status: 400, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      )
     }
 
     // Server-side outcome determination
@@ -126,10 +154,17 @@ Deno.serve(async (req) => {
   } catch (error) {
     console.error('Spin error:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorId = crypto.randomUUID()
+    console.error(`Error ID ${errorId}:`, error)
+    
     return new Response(
-      JSON.stringify({ error: errorMessage }),
+      JSON.stringify({ 
+        code: 'SPIN_FAILED', 
+        message: errorMessage,
+        errorId 
+      }),
       { 
-        status: 400, 
+        status: 500, 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
       }
     )
