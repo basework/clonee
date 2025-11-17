@@ -8,6 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+<<<<<<< HEAD
     --background: 168 35% 98%; /* Pale white with jade undertone */
     --foreground: 168 45% 15%; /* Deep jade for text */
 
@@ -45,12 +46,55 @@ All colors MUST be HSL.
     
     --shadow-glow-primary: 0 0 40px hsl(168 42% 45% / 0.2);
     --shadow-glow-secondary: 0 0 40px hsl(45 65% 55% / 0.25);
+=======
+    --background: 220 25% 8%;
+    --foreground: 0 0% 100%;
+
+    --card: 220 20% 12%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 220 20% 12%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 195 92% 58%;
+    --primary-foreground: 220 25% 8%;
+
+    --secondary: 45 95% 55%;
+    --secondary-foreground: 220 25% 8%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 195 92% 58%;
+    --accent-foreground: 220 25% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 195 92% 58%;
+
+    --radius: 1rem;
+
+    --gradient-liquid: linear-gradient(135deg, hsl(195 92% 58% / 0.2), hsl(45 95% 55% / 0.2));
+    --gradient-primary: linear-gradient(135deg, hsl(195 92% 58%), hsl(195 92% 68%));
+    --gradient-secondary: linear-gradient(135deg, hsl(45 95% 55%), hsl(45 95% 65%));
+    --gradient-mixed: linear-gradient(135deg, hsl(195 92% 58%), hsl(45 95% 55%));
+    
+    --shadow-glow-primary: 0 0 40px hsl(195 92% 58% / 0.3);
+    --shadow-glow-secondary: 0 0 40px hsl(45 95% 55% / 0.3);
+>>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
   }
 }
 
 @layer utilities {
   .liquid-bg {
+<<<<<<< HEAD
     background: linear-gradient(135deg, hsl(168 35% 98%), hsl(168 30% 95%));
+=======
+    background: linear-gradient(135deg, hsl(220 25% 8%), hsl(220 25% 12%));
+>>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
     position: relative;
     overflow: hidden;
   }
@@ -60,8 +104,13 @@ All colors MUST be HSL.
     position: absolute;
     width: 200%;
     height: 200%;
+<<<<<<< HEAD
     background: radial-gradient(circle at 30% 50%, hsl(168 42% 45% / 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 70% 50%, hsl(45 65% 55% / 0.08) 0%, transparent 50%);
+=======
+    background: radial-gradient(circle at 30% 50%, hsl(195 92% 58% / 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, hsl(45 95% 55% / 0.15) 0%, transparent 50%);
+>>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
     animation: liquid-float 20s ease-in-out infinite;
     pointer-events: none;
     z-index: 0;
@@ -83,7 +132,11 @@ All colors MUST be HSL.
   }
   
   .gradient-text {
+<<<<<<< HEAD
     background: linear-gradient(135deg, hsl(168 42% 45%), hsl(45 65% 55%));
+=======
+    background: linear-gradient(135deg, hsl(195 92% 58%), hsl(45 95% 55%));
+>>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -96,6 +149,7 @@ All colors MUST be HSL.
   .glow-secondary {
     box-shadow: var(--shadow-glow-secondary);
   }
+<<<<<<< HEAD
 
   /* New reactive touch classes */
   .reactive-surface {
@@ -184,6 +238,8 @@ All colors MUST be HSL.
       0 0 20px hsl(168 42% 45% / 0.2),
       0 0 0 1px hsl(168 42% 45% / 0.1);
   }
+=======
+>>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
 }
 
 @layer base {
@@ -203,6 +259,7 @@ All colors MUST be HSL.
     cursor: pointer;
   }
 }
+<<<<<<< HEAD
 
 /* JavaScript interaction styles for reactive effects */
 .reactive-grid {
@@ -243,3 +300,5 @@ All colors MUST be HSL.
     0 10px 25px hsl(168 42% 45% / 0.1),
     0 5px 10px hsl(45 65% 55% / 0.05);
 }
+=======
+>>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
