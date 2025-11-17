@@ -1,11 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-<<<<<<< HEAD
   darkMode: ["class", ".dark"],
-=======
-  darkMode: ["class"],
->>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {

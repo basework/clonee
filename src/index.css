@@ -2,246 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* ================================================
+   GLOBAL DESIGN TOKENS — MYSTIC JADE THEME
+   ================================================ */
 @layer base {
   :root {
-<<<<<<< HEAD
-    --background: 168 35% 98%; /* Pale white with jade undertone */
-    --foreground: 168 45% 15%; /* Deep jade for text */
+    /* Core Palette */
+    --jade-100: 168 35% 97%;
+    --jade-200: 168 28% 93%;
+    --jade-300: 168 30% 88%;
+    --jade-500: 168 42% 44%; /* Mystic Jade */
+    --jade-600: 168 42% 34%;
+    --gold-400: 45 65% 55%; /* Gold lining */
+    --gold-500: 45 72% 48%;
 
-    --card: 168 30% 96%;
-    --card-foreground: 168 45% 15%;
+    /* Background + Foreground */
+    --background: var(--jade-100);
+    --foreground: 168 45% 15%;
 
-    --popover: 168 30% 96%;
-    --popover-foreground: 168 45% 15%;
+    /* Surfaces */
+    --card: var(--jade-200);
+    --card-foreground: var(--foreground);
 
-    --primary: 168 42% 45%; /* Mystic Jade */
-    --primary-foreground: 168 35% 98%;
+    --popover: var(--jade-200);
+    --popover-foreground: var(--foreground);
 
-    --secondary: 45 65% 55%; /* Gold lining */
+    /* Primary (Jade) */
+    --primary: var(--jade-500);
+    --primary-foreground: var(--jade-100);
+
+    /* Secondary (Gold) */
+    --secondary: var(--gold-400);
     --secondary-foreground: 45 35% 15%;
 
-    --muted: 168 25% 92%;
+    /* Muted */
+    --muted: var(--jade-300);
     --muted-foreground: 168 25% 40%;
 
-    --accent: 45 65% 55%; /* Gold accent */
-    --accent-foreground: 45 35% 15%;
+    /* Accent */
+    --accent: var(--gold-400);
+    --accent-foreground: var(--gold-500);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 168 35% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: var(--jade-100);
 
-    --border: 168 30% 85%;
+    /* Border / ring */
+    --border: 168 30% 80%;
     --input: 168 30% 90%;
-    --ring: 168 42% 45%;
+    --ring: var(--jade-500);
 
     --radius: 1rem;
 
-    --gradient-liquid: linear-gradient(135deg, hsl(168 42% 45% / 0.15), hsl(45 65% 55% / 0.1));
-    --gradient-primary: linear-gradient(135deg, hsl(168 42% 45%), hsl(168 42% 55%));
-    --gradient-secondary: linear-gradient(135deg, hsl(45 65% 55%), hsl(45 65% 65%));
-    --gradient-mixed: linear-gradient(135deg, hsl(168 42% 45%), hsl(45 65% 55%));
-    
-    --shadow-glow-primary: 0 0 40px hsl(168 42% 45% / 0.2);
-    --shadow-glow-secondary: 0 0 40px hsl(45 65% 55% / 0.25);
-=======
-    --background: 220 25% 8%;
-    --foreground: 0 0% 100%;
+    /* Gradients */
+    --gradient-liquid: linear-gradient(
+      135deg,
+      hsl(var(--jade-500) / 0.15),
+      hsl(var(--gold-400) / 0.12)
+    );
 
-    --card: 220 20% 12%;
-    --card-foreground: 0 0% 100%;
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(var(--jade-500)),
+      hsl(168 42% 56%)
+    );
 
-    --popover: 220 20% 12%;
-    --popover-foreground: 0 0% 100%;
+    --gradient-secondary: linear-gradient(
+      135deg,
+      hsl(var(--gold-400)),
+      hsl(45 65% 63%)
+    );
 
-    --primary: 195 92% 58%;
-    --primary-foreground: 220 25% 8%;
+    --gradient-mixed: linear-gradient(
+      135deg,
+      hsl(var(--jade-500)),
+      hsl(var(--gold-400))
+    );
 
-    --secondary: 45 95% 55%;
-    --secondary-foreground: 220 25% 8%;
-
-    --muted: 220 15% 18%;
-    --muted-foreground: 0 0% 70%;
-
-    --accent: 195 92% 58%;
-    --accent-foreground: 220 25% 8%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 195 92% 58%;
-
-    --radius: 1rem;
-
-    --gradient-liquid: linear-gradient(135deg, hsl(195 92% 58% / 0.2), hsl(45 95% 55% / 0.2));
-    --gradient-primary: linear-gradient(135deg, hsl(195 92% 58%), hsl(195 92% 68%));
-    --gradient-secondary: linear-gradient(135deg, hsl(45 95% 55%), hsl(45 95% 65%));
-    --gradient-mixed: linear-gradient(135deg, hsl(195 92% 58%), hsl(45 95% 55%));
-    
-    --shadow-glow-primary: 0 0 40px hsl(195 92% 58% / 0.3);
-    --shadow-glow-secondary: 0 0 40px hsl(45 95% 55% / 0.3);
->>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
+    /* Glow shadows */
+    --shadow-glow-primary: 0 0 45px hsl(var(--jade-500) / 0.25);
+    --shadow-glow-secondary: 0 0 45px hsl(var(--gold-400) / 0.28);
   }
 }
 
-@layer utilities {
-  .liquid-bg {
-<<<<<<< HEAD
-    background: linear-gradient(135deg, hsl(168 35% 98%), hsl(168 30% 95%));
-=======
-    background: linear-gradient(135deg, hsl(220 25% 8%), hsl(220 25% 12%));
->>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .liquid-bg::before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 200%;
-<<<<<<< HEAD
-    background: radial-gradient(circle at 30% 50%, hsl(168 42% 45% / 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 50%, hsl(45 65% 55% / 0.08) 0%, transparent 50%);
-=======
-    background: radial-gradient(circle at 30% 50%, hsl(195 92% 58% / 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 70% 50%, hsl(45 95% 55% / 0.15) 0%, transparent 50%);
->>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
-    animation: liquid-float 20s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-  }
-  
-  @keyframes liquid-float {
-    0%, 100% {
-      transform: translate(-10%, -10%) rotate(0deg);
-    }
-    25% {
-      transform: translate(-5%, -15%) rotate(90deg);
-    }
-    50% {
-      transform: translate(-15%, -5%) rotate(180deg);
-    }
-    75% {
-      transform: translate(-5%, -10%) rotate(270deg);
-    }
-  }
-  
-  .gradient-text {
-<<<<<<< HEAD
-    background: linear-gradient(135deg, hsl(168 42% 45%), hsl(45 65% 55%));
-=======
-    background: linear-gradient(135deg, hsl(195 92% 58%), hsl(45 95% 55%));
->>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .glow-primary {
-    box-shadow: var(--shadow-glow-primary);
-  }
-  
-  .glow-secondary {
-    box-shadow: var(--shadow-glow-secondary);
-  }
-<<<<<<< HEAD
-
-  /* New reactive touch classes */
-  .reactive-surface {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .reactive-surface::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-      circle at var(--x, 50%) var(--y, 50%), 
-      hsl(168 42% 45% / 0.15) 0%, 
-      transparent 50%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .reactive-surface:hover::after,
-  .reactive-surface:active::after {
-    opacity: 1;
-  }
-
-  .reactive-surface.gold::after {
-    background: radial-gradient(
-      circle at var(--x, 50%) var(--y, 50%), 
-      hsl(45 65% 55% / 0.2) 0%, 
-      transparent 50%
-    );
-  }
-
-  /* Ripple effect for buttons */
-  .ripple {
-    position: relative;
-    overflow: hidden;
-    transform: translate3d(0, 0, 0);
-  }
-
-  .ripple:after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    background-image: radial-gradient(circle, hsl(168 42% 45% / 0.3) 10%, transparent 10.01%);
-    background-repeat: no-repeat;
-    background-position: 50%;
-    transform: scale(10, 10);
-    opacity: 0;
-    transition: transform .5s, opacity 1s;
-  }
-
-  .ripple:active:after {
-    transform: scale(0, 0);
-    opacity: .2;
-    transition: 0s;
-  }
-
-  .ripple.gold:after {
-    background-image: radial-gradient(circle, hsl(45 65% 55% / 0.4) 10%, transparent 10.01%);
-  }
-
-  /* Interactive border glow */
-  .interactive-border {
-    position: relative;
-    border: 1px solid transparent;
-    background: 
-      linear-gradient(hsl(168 35% 98%), hsl(168 35% 98%)) padding-box,
-      linear-gradient(135deg, hsl(168 42% 45%), hsl(45 65% 55%)) border-box;
-    transition: all 0.3s ease;
-  }
-
-  .interactive-border:hover {
-    box-shadow: 
-      0 0 20px hsl(168 42% 45% / 0.2),
-      0 0 0 1px hsl(168 42% 45% / 0.1);
-  }
-=======
->>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
-}
-
+/* ================================================
+   BASE STYLES
+   ================================================ */
 @layer base {
   * {
     @apply border-border;
@@ -259,46 +104,204 @@ All colors MUST be HSL.
     cursor: pointer;
   }
 }
-<<<<<<< HEAD
 
-/* JavaScript interaction styles for reactive effects */
-.reactive-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
+/* ================================================
+   UTILITIES — REACTIVE EFFECTS
+   ================================================ */
+@layer utilities {
 
-.reactive-item {
-  background: hsl(168 30% 96%);
-  border: 1px solid hsl(168 30% 85%);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
+  /* Liquid Background */
+  .liquid-bg {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--jade-100)),
+      hsl(var(--jade-200))
+    );
+    position: relative;
+    overflow: hidden;
+  }
 
-.reactive-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, hsl(168 42% 45%), hsl(45 65% 55%));
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
+  .liquid-bg::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background:
+      radial-gradient(circle at 30% 50%, hsl(var(--jade-500) / 0.12) 0%, transparent 55%),
+      radial-gradient(circle at 75% 40%, hsl(var(--gold-400) / 0.10) 0%, transparent 60%);
+    animation: float-liquid 18s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.reactive-item:hover::before {
-  transform: scaleX(1);
-}
+  @keyframes float-liquid {
+    0%, 100% { transform: translate(-10%, -10%) rotate(0deg) scale(1); }
+    40% { transform: translate(-5%, -15%) rotate(75deg) scale(1.05); }
+    70% { transform: translate(-15%, -5%) rotate(150deg) scale(1.03); }
+  }
 
-.reactive-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 10px 25px hsl(168 42% 45% / 0.1),
-    0 5px 10px hsl(45 65% 55% / 0.05);
+  /* Gradient Text */
+  .gradient-text {
+    background: var(--gradient-mixed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Glow Utilities */
+  .glow-primary {
+    box-shadow: var(--shadow-glow-primary);
+  }
+
+  .glow-secondary {
+    box-shadow: var(--shadow-glow-secondary);
+  }
+
+
+  /* ======================================================
+     REACTIVE SURFACE — Touch / Hover / Drag Illusion
+     ======================================================*/
+
+  .reactive-surface {
+    position: relative;
+    overflow: hidden;
+    background: hsl(var(--card));
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .reactive-surface::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 50%,
+      hsl(var(--jade-500) / 0.25),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .reactive-surface:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 15px 30px hsl(var(--jade-500) / 0.18),
+      0 5px 15px hsl(var(--gold-400) / 0.10);
+  }
+
+  .reactive-surface:hover::after {
+    opacity: 1;
+  }
+
+  .reactive-surface.gold::after {
+    background: radial-gradient(
+      circle at 50% 50%,
+      hsl(var(--gold-400) / 0.28),
+      transparent 70%
+    );
+  }
+
+
+  /* ======================================================
+     RIPPLE BUTTON — Jade/Gold Version
+     ======================================================*/
+
+  .ripple {
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .ripple:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, hsl(var(--jade-500) / 0.35) 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    opacity: 0;
+    transform: scale(10);
+    transition: transform .45s, opacity .8s;
+    pointer-events: none;
+  }
+
+  .ripple:active:after {
+    transform: scale(0);
+    opacity: .25;
+    transition: 0s;
+  }
+
+  .ripple.gold:after {
+    background-image:
+      radial-gradient(circle, hsl(var(--gold-400) / 0.45) 10%, transparent 10.01%);
+  }
+
+
+  /* ======================================================
+     INTERACTIVE BORDER — Jade/Gold Shimmer
+     ======================================================*/
+
+  .interactive-border {
+    position: relative;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(hsl(var(--jade-100)), hsl(var(--jade-100))) padding-box,
+      linear-gradient(135deg, hsl(var(--jade-500)), hsl(var(--gold-400))) border-box;
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .interactive-border:hover {
+    box-shadow:
+      0 0 25px hsl(var(--jade-500) / 0.22),
+      0 0 10px hsl(var(--gold-400) / 0.18);
+  }
+
+
+  /* ======================================================
+     REACTIVE GRID ITEMS — Smooth highlight + lift
+     ======================================================*/
+
+  .reactive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .reactive-item {
+    background: hsl(var(--jade-200));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reactive-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      hsl(var(--jade-500)),
+      hsl(var(--gold-400))
+    );
+    transform: scaleX(0);
+    transition: transform 0.35s ease;
+  }
+
+  .reactive-item:hover::before {
+    transform: scaleX(1);
+  }
+
+  .reactive-item:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 25px hsl(var(--jade-500) / 0.12),
+      0 5px 10px hsl(var(--gold-400) / 0.07);
+  }
 }
-=======
->>>>>>> 53cc5d35de9fa6ee31cc06bd7ff297f8fd0cedfe
