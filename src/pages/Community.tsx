@@ -8,11 +8,11 @@ const Community = () => {
   const navigate = useNavigate();
 
   const openTelegramChannel = () => {
-    window.open("https://t.me/officialbluepay2025", "_blank", "noopener,noreferrer");
+    window.open("https://t.me/tivexxglobal", "_blank", "noopener,noreferrer");
   };
 
   const openTelegramGroup = () => {
-    window.open("https://chat.whatsapp.com/EB6wii8cqxI25rENGOzI5d?mode=wwt", "_blank", "noopener,noreferrer");
+    window.open("https://whatsapp.com/channel/0029VbBnF1q9MF8rtAHEih2p", "_blank", "noopener,noreferrer");
   };
 
   return (

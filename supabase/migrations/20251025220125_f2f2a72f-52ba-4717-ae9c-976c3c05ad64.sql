@@ -94,7 +94,7 @@ DECLARE
   referrer_id UUID;
 BEGIN
   -- Generate unique referral code
-  new_referral_code := 'CHIXX' || UPPER(SUBSTRING(MD5(RANDOM()::TEXT) FROM 1 FOR 6));
+  new_referral_code := 'TIVXX' || UPPER(SUBSTRING(MD5(RANDOM()::TEXT) FROM 1 FOR 6));
   
   -- Get referrer if referral code exists
   IF NEW.raw_user_meta_data->>'referralCode' IS NOT NULL THEN

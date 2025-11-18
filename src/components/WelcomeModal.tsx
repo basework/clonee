@@ -19,7 +19,7 @@ export const WelcomeModal = () => {
   };
 
   const handleJoinTelegram = () => {
-    window.open("https://t.me/officialbluepay2025", "_blank", "noopener,noreferrer");
+    window.open("https://t.me/tivexxglobal", "_blank", "noopener,noreferrer");
     handleClose();
   };
 

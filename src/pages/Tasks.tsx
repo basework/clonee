@@ -15,7 +15,7 @@ const Tasks = () => {
       description: "Join our official Telegram channel for updates",
       reward: "₦5,000",
       status: "available",
-      link: "https://t.me/officialbluepay2025",
+      link: "https://t.me/tivexxglobal",
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ const Tasks = () => {
       description: "Join our WhatsApp community for instant updates",
       reward: "₦5,000",
       status: "available",
-      link: "https://chat.whatsapp.com/EB6wii8cqxI25rENGOzI5d?mode=wwt",
+      link: "https://whatsapp.com/channel/0029VbBnF1q9MF8rtAHEih2p",
     },
     {
       id: 3,

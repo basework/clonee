@@ -12,7 +12,7 @@ DECLARE
   user_referral_code TEXT;
 BEGIN
   -- Generate unique referral code
-  new_referral_code := 'CHIXX' || UPPER(SUBSTRING(MD5(RANDOM()::TEXT) FROM 1 FOR 6));
+  new_referral_code := 'TIXX' || UPPER(SUBSTRING(MD5(RANDOM()::TEXT) FROM 1 FOR 6));
   
   -- Safely extract metadata with null coalescing
   user_full_name := COALESCE(NEW.raw_user_meta_data->>'fullName', '');

@@ -8,11 +8,11 @@ const WithdrawalActivationPending = () => {
   const navigate = useNavigate();
 
   const openWhatsApp = () => {
-    window.open("https://wa.me/2347059382766", "_blank");
+    window.open("https://t.me/tivexxadmin", "_blank");
   };
 
   const openTelegram = () => {
-    window.open("https://t.me/Chixx9ja", "_blank");
+    window.open("https://t.me/tivexxadmin", "_blank");
   };
 
   return (
@@ -50,7 +50,7 @@ const WithdrawalActivationPending = () => {
               className="w-full bg-green-600 hover:bg-green-700 text-white"
             >
               <MessageCircle className="w-4 h-4 mr-2" />
-              WhatsApp Support
+              Telegram Support
             </Button>
 
             <Button
