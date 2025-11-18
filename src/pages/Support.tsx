@@ -8,7 +8,7 @@ const Support = () => {
   const navigate = useNavigate();
 
   const openWhatsApp = () => {
-    window.open("https://wa.me/2349127560865", "_blank", "noopener,noreferrer");
+    window.open("https://whatsapp.com/channel/0029VbBnF1q9MF8rtAHEih2p", "_blank", "noopener,noreferrer");
   };
 
   const openTelegram = () => {
