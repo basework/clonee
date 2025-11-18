@@ -3,83 +3,83 @@
 @tailwind utilities;
 
 /* ================================================
-   GLOBAL DESIGN TOKENS — MYSTIC JADE THEME
+   GLOBAL DESIGN TOKENS — DEEP BLUE ROYAL GOLD THEME
    ================================================ */
 @layer base {
   :root {
     /* Core Palette */
-    --jade-100: 168 35% 97%;
-    --jade-200: 168 28% 93%;
-    --jade-300: 168 30% 88%;
-    --jade-500: 168 42% 44%; /* Mystic Jade */
-    --jade-600: 168 42% 34%;
-    --gold-400: 45 65% 55%; /* Gold lining */
-    --gold-500: 45 72% 48%;
+    --blue-100: 220 30% 96%;
+    --blue-200: 222 32% 90%;
+    --blue-300: 224 40% 80%;
+    --blue-500: 226 50% 45%; /* Deep Royal Blue */
+    --blue-600: 226 58% 34%;
+    --gold-400: 45 72% 55%;  /* Royal Gold */
+    --gold-500: 45 80% 50%;
 
     /* Background + Foreground */
-    --background: var(--jade-100);
-    --foreground: 168 45% 15%;
+    --background: var(--blue-100);
+    --foreground: 226 40% 15%;
 
     /* Surfaces */
-    --card: var(--jade-200);
+    --card: var(--blue-200);
     --card-foreground: var(--foreground);
 
-    --popover: var(--jade-200);
+    --popover: var(--blue-200);
     --popover-foreground: var(--foreground);
 
-    /* Primary (Jade) */
-    --primary: var(--jade-500);
-    --primary-foreground: var(--jade-100);
+    /* Primary (Deep Blue) */
+    --primary: var(--blue-500);
+    --primary-foreground: var(--blue-100);
 
     /* Secondary (Gold) */
     --secondary: var(--gold-400);
     --secondary-foreground: 45 35% 15%;
 
     /* Muted */
-    --muted: var(--jade-300);
-    --muted-foreground: 168 25% 40%;
+    --muted: var(--blue-300);
+    --muted-foreground: 226 20% 40%;
 
     /* Accent */
     --accent: var(--gold-400);
     --accent-foreground: var(--gold-500);
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: var(--jade-100);
+    --destructive-foreground: var(--blue-100);
 
     /* Border / ring */
-    --border: 168 30% 80%;
-    --input: 168 30% 90%;
-    --ring: var(--jade-500);
+    --border: 226 30% 70%;
+    --input: 226 30% 78%;
+    --ring: var(--blue-500);
 
     --radius: 1rem;
 
     /* Gradients */
     --gradient-liquid: linear-gradient(
       135deg,
-      hsl(var(--jade-500) / 0.15),
-      hsl(var(--gold-400) / 0.12)
+      hsl(var(--blue-500) / 0.15),
+      hsl(var(--gold-400) / 0.10)
     );
 
     --gradient-primary: linear-gradient(
       135deg,
-      hsl(var(--jade-500)),
-      hsl(168 42% 56%)
+      hsl(var(--blue-500)),
+      hsl(226 55% 55%)
     );
 
     --gradient-secondary: linear-gradient(
       135deg,
       hsl(var(--gold-400)),
-      hsl(45 65% 63%)
+      hsl(45 75% 65%)
     );
 
     --gradient-mixed: linear-gradient(
       135deg,
-      hsl(var(--jade-500)),
+      hsl(var(--blue-500)),
       hsl(var(--gold-400))
     );
 
     /* Glow shadows */
-    --shadow-glow-primary: 0 0 45px hsl(var(--jade-500) / 0.25);
+    --shadow-glow-primary: 0 0 45px hsl(var(--blue-500) / 0.25);
     --shadow-glow-secondary: 0 0 45px hsl(var(--gold-400) / 0.28);
   }
 }
@@ -114,8 +114,8 @@
   .liquid-bg {
     background: linear-gradient(
       135deg,
-      hsl(var(--jade-100)),
-      hsl(var(--jade-200))
+      hsl(var(--blue-100)),
+      hsl(var(--blue-200))
     );
     position: relative;
     overflow: hidden;
@@ -127,7 +127,7 @@
     width: 200%;
     height: 200%;
     background:
-      radial-gradient(circle at 30% 50%, hsl(var(--jade-500) / 0.12) 0%, transparent 55%),
+      radial-gradient(circle at 30% 50%, hsl(var(--blue-500) / 0.12) 0%, transparent 55%),
       radial-gradient(circle at 75% 40%, hsl(var(--gold-400) / 0.10) 0%, transparent 60%);
     animation: float-liquid 18s ease-in-out infinite;
     pointer-events: none;
@@ -159,7 +159,7 @@
 
 
   /* ======================================================
-     REACTIVE SURFACE — Touch / Hover / Drag Illusion
+     REACTIVE SURFACE — Touch / Hover Deep Blue + Gold
      ======================================================*/
 
   .reactive-surface {
@@ -175,7 +175,7 @@
     inset: 0;
     background: radial-gradient(
       circle at 50% 50%,
-      hsl(var(--jade-500) / 0.25),
+      hsl(var(--blue-500) / 0.25),
       transparent 70%
     );
     opacity: 0;
@@ -186,8 +186,8 @@
   .reactive-surface:hover {
     transform: translateY(-3px);
     box-shadow:
-      0 15px 30px hsl(var(--jade-500) / 0.18),
-      0 5px 15px hsl(var(--gold-400) / 0.10);
+      0 15px 30px hsl(var(--blue-500) / 0.18),
+      0 5px 15px hsl(var(--gold-400) / 0.12);
   }
 
   .reactive-surface:hover::after {
@@ -204,7 +204,7 @@
 
 
   /* ======================================================
-     RIPPLE BUTTON — Jade/Gold Version
+     RIPPLE BUTTON — Deep Blue / Royal Gold
      ======================================================*/
 
   .ripple {
@@ -218,7 +218,7 @@
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(circle, hsl(var(--jade-500) / 0.35) 10%, transparent 10.01%);
+      radial-gradient(circle, hsl(var(--blue-500) / 0.40) 12%, transparent 12.1%);
     background-repeat: no-repeat;
     background-position: 50%;
     opacity: 0;
@@ -229,38 +229,38 @@
 
   .ripple:active:after {
     transform: scale(0);
-    opacity: .25;
+    opacity: .28;
     transition: 0s;
   }
 
   .ripple.gold:after {
     background-image:
-      radial-gradient(circle, hsl(var(--gold-400) / 0.45) 10%, transparent 10.01%);
+      radial-gradient(circle, hsl(var(--gold-400) / 0.55) 12%, transparent 12.1%);
   }
 
 
   /* ======================================================
-     INTERACTIVE BORDER — Jade/Gold Shimmer
+     INTERACTIVE BORDER — Blue/Gold Shimmer
      ======================================================*/
 
   .interactive-border {
     position: relative;
     border: 1px solid transparent;
     background:
-      linear-gradient(hsl(var(--jade-100)), hsl(var(--jade-100))) padding-box,
-      linear-gradient(135deg, hsl(var(--jade-500)), hsl(var(--gold-400))) border-box;
+      linear-gradient(hsl(var(--blue-100)), hsl(var(--blue-100))) padding-box,
+      linear-gradient(135deg, hsl(var(--blue-500)), hsl(var(--gold-400))) border-box;
     transition: box-shadow 0.3s, border-color 0.3s;
   }
 
   .interactive-border:hover {
     box-shadow:
-      0 0 25px hsl(var(--jade-500) / 0.22),
+      0 0 25px hsl(var(--blue-500) / 0.22),
       0 0 10px hsl(var(--gold-400) / 0.18);
   }
 
 
   /* ======================================================
-     REACTIVE GRID ITEMS — Smooth highlight + lift
+     REACTIVE GRID ITEMS — Blue highlight + lift
      ======================================================*/
 
   .reactive-grid {
@@ -270,7 +270,7 @@
   }
 
   .reactive-item {
-    background: hsl(var(--jade-200));
+    background: hsl(var(--blue-200));
     border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
     padding: 1.5rem;
@@ -287,7 +287,7 @@
     right: 0;
     height: 2px;
     background: linear-gradient(90deg,
-      hsl(var(--jade-500)),
+      hsl(var(--blue-500)),
       hsl(var(--gold-400))
     );
     transform: scaleX(0);
@@ -301,7 +301,8 @@
   .reactive-item:hover {
     transform: translateY(-2px);
     box-shadow:
-      0 10px 25px hsl(var(--jade-500) / 0.12),
-      0 5px 10px hsl(var(--gold-400) / 0.07);
+      0 10px 25px hsl(var(--blue-500) / 0.14),
+      0 5px 10px hsl(var(--gold-400) / 0.08);
   }
 }
+
