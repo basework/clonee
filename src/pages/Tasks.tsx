@@ -35,7 +35,7 @@ const Tasks = () => {
     {
       id: 4,
       title: "Make First Referral",
-      description: "Invite your first friend to Chixx9ja",
+      description: "Invite your first friend to Tivexx Global",
       reward: "₦10,000",
       status: "available",
     },

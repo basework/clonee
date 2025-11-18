@@ -7,14 +7,14 @@ export const WelcomeModal = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const hasSeenWelcome = localStorage.getItem("chixx9ja_welcome_seen");
+    const hasSeenWelcome = localStorage.getItem("Tivexx_Global_welcome_seen");
     if (!hasSeenWelcome) {
       setIsOpen(true);
     }
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem("chixx9ja_welcome_seen", "true");
+    localStorage.setItem("Tivexx_Global_welcome_seen", "true");
     setIsOpen(false);
   };
 
@@ -28,7 +28,7 @@ export const WelcomeModal = () => {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center">
-            Welcome to Chixx9ja! 🎉
+            Welcome to Tivexx Global! 🎉
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">

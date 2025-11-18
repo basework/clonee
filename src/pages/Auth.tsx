@@ -70,7 +70,7 @@ const Auth = () => {
       if (data.user) {
         // Clear stored referral code after successful signup
         localStorage.removeItem("referralCode");
-        toast.success("Welcome to Chixx9ja! 🎉");
+        toast.success("Welcome to Tivexx Global! 🎉");
         setTimeout(() => navigate("/welcome"), 1000);
       }
     } catch (error: any) {
@@ -107,7 +107,7 @@ const Auth = () => {
     <div className="min-h-screen liquid-bg flex items-center justify-center p-4">
       <Card className="w-full max-w-md bg-card/95 backdrop-blur-lg border-border/50 animate-slide-up">
         <CardHeader className="text-center">
-          <CardTitle className="text-4xl font-bold gradient-text mb-2">Chixx9ja</CardTitle>
+          <CardTitle className="text-4xl font-bold gradient-text mb-2">Tivexx_Global</CardTitle>
           <CardDescription className="text-muted-foreground">
             Turn one click into thousands!
           </CardDescription>

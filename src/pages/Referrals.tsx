@@ -51,8 +51,8 @@ const Referrals = () => {
 
   const shareReferral = async () => {
     const shareData = {
-      title: "Join Chixx9ja",
-      text: `Join me on Chixx9ja and earn ₦50,000 welcome bonus! Use my referral code: ${profile?.referral_code}`,
+      title: "Join Tivexx Global",
+      text: `Join me on Tivexx Global and earn ₦50,000 welcome bonus! Use my referral code: ${profile?.referral_code}`,
       url: referralLink,
     };
 

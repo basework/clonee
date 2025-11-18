@@ -7,8 +7,8 @@ import { FloatingActionButton } from "@/components/FloatingActionButton";
 const UpgradePending = () => {
   const navigate = useNavigate();
 
-  const WHATSAPP_SUPPORT = "https://wa.me/1234567890"; // Replace with actual number
-  const TELEGRAM_SUPPORT = "https://t.me/chixx9ja_support"; // Replace with actual username
+  /*const WHATSAPP_SUPPORT = "https://wa.me/1234567890";*/ // Replace with actual number
+  const TELEGRAM_SUPPORT = "https://t.me/tivexxadmin"; // Replace with actual username
 
   return (
     <div className="min-h-screen liquid-bg pb-20">
@@ -39,7 +39,7 @@ const UpgradePending = () => {
             <p className="text-sm font-semibold text-muted-foreground mb-2">Need Help?</p>
             
             <Button
-              onClick={() => window.open(WHATSAPP_SUPPORT, "_blank")}
+              /*onClick={() => window.open(WHATSAPP_SUPPORT, "_blank")}*/
               className="w-full bg-green-500 hover:bg-green-600 text-white"
             >
               <MessageCircle className="w-4 h-4 mr-2" />

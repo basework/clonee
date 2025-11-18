@@ -12,7 +12,7 @@ const Support = () => {
   };
 
   const openTelegram = () => {
-    window.open("https://t.me/Chixx9ja", "_blank", "noopener,noreferrer");
+    window.open("https://t.me/tivexxadmin", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -62,8 +62,7 @@ const Support = () => {
 
         <Card className="bg-muted/50 border-border/50 p-4">
           <p className="text-sm text-center text-muted-foreground">
-            📞 <strong>WhatsApp:</strong> +234 705 938 2766<br />
-            📱 <strong>Telegram:</strong> @Chixx9ja
+            📱 <strong>Telegram:</strong> @tivexxadmin
           </p>
         </Card>
       </div>
