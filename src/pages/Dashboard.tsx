@@ -25,15 +25,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     checkAuth();
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!session) navigate("/auth");
-      else {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!session) {
+        navigate("/auth");
+      } else {
         setUser(session.user);
         loadProfile(session.user.id);
       }
     });
 
-    return () => authListener.subscription.unsubscribe();
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
   useEffect(() => {
@@ -47,35 +48,56 @@ const Dashboard = () => {
   }, [lastClaimTime]);
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) setTimeout(() => navigate("/auth"), 100);
-    else {
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) throw error;
+      
+      if (!session) {
+        navigate("/auth");
+        return;
+      }
+      
       setUser(session.user);
-      loadProfile(session.user.id);
+      await loadProfile(session.user.id);
+    } catch (error) {
+      console.error("Auth check error:", error);
+      toast.error("Authentication error");
+      navigate("/auth");
     }
   };
 
   const loadProfile = async (userId: string) => {
     try {
-      const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single();
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
+        .single();
+        
       if (error) throw error;
       setProfile(data);
 
-      const { data: claims } = await supabase
+      // Load claim history
+      const { data: claims, error: claimsError } = await supabase
         .from("claims")
         .select("*")
         .eq("user_id", userId)
         .order("claimed_at", { ascending: false })
         .limit(1);
 
+      if (claimsError) throw claimsError;
+
       if (claims?.length > 0) {
         const last = new Date(claims[0].claimed_at);
         setLastClaimTime(last);
         setCanClaim(Date.now() - last.getTime() >= 5 * 60 * 1000);
-      } else setCanClaim(true);
+      } else {
+        setCanClaim(true);
+      }
 
-    } catch {
-      toast.error("Failed to load profile");
+    } catch (error: any) {
+      console.error("Profile load error:", error);
+      toast.error("Failed to load profile data");
     } finally {
       setLoading(false);
     }
@@ -89,7 +111,7 @@ const Dashboard = () => {
   };
 
   const handleClaim = async () => {
-    if (!canClaim || claiming) return;
+    if (!canClaim || claiming || !user) return;
     setClaiming(true);
 
     try {
@@ -120,7 +142,8 @@ const Dashboard = () => {
       setCanClaim(false);
       await loadProfile(user.id);
 
-    } catch {
+    } catch (error: any) {
+      console.error("Claim error:", error);
       toast.error("Failed to claim bonus");
     } finally {
       setClaiming(false);
@@ -130,12 +153,37 @@ const Dashboard = () => {
   const getTimeRemaining = () => {
     if (!lastClaimTime || canClaim) return "Ready!";
     const diff = 5 * 60 * 1000 - (Date.now() - lastClaimTime.getTime());
+    if (diff <= 0) return "Ready!";
     const m = Math.floor(diff / 60000);
     const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, "0");
     return `${m}:${s}`;
   };
 
-  if (loading || !profile) return null;
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen liquid-bg flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render if no profile
+  if (!profile) {
+    return (
+      <div className="min-h-screen liquid-bg flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground">Failed to load profile</p>
+          <Button onClick={() => navigate("/auth")} className="mt-4">
+            Return to Login
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen liquid-bg pb-20">
@@ -146,10 +194,10 @@ const Dashboard = () => {
       <div className="bg-gradient-to-r from-primary to-secondary p-4 text-primary-foreground glow-primary">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-background/20 backdrop-blur-lg flex items-center justify-center text-lg font-bold">
-            {profile.full_name?.charAt(0) || "U"}
+            {profile.full_name?.charAt(0) || user?.email?.charAt(0) || "U"}
           </div>
           <div>
-            <p className="text-xs opacity-90">Hi, {profile.full_name} 👋</p>
+            <p className="text-xs opacity-90">Hi, {profile.full_name || user?.email || "User"} 👋</p>
             <p className="text-sm font-semibold">Welcome back!</p>
           </div>
         </div>

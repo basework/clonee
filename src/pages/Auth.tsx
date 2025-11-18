@@ -37,9 +37,13 @@ const Auth = () => {
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        navigate("/dashboard");
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        console.error("Session check error:", error);
       }
     };
     checkSession();
@@ -58,10 +62,9 @@ const Auth = () => {
         password: signupData.password,
         options: {
           data: {
-            fullName: signupData.fullName,
-            referralCode: finalRefCode,
+            full_name: signupData.fullName, // Changed to full_name to match Supabase convention
+            referral_code: finalRefCode, // Changed to referral_code to match Supabase convention
           },
-          emailRedirectTo: `${window.location.origin}/dashboard`,
         },
       });
 
@@ -71,9 +74,16 @@ const Auth = () => {
         // Clear stored referral code after successful signup
         localStorage.removeItem("referralCode");
         toast.success("Welcome to Tivexx Global! 🎉");
-        setTimeout(() => navigate("/welcome"), 1000);
+        
+        // Check if user needs email confirmation
+        if (data.user.identities && data.user.identities.length === 0) {
+          toast.info("Please check your email for verification link");
+        } else {
+          setTimeout(() => navigate("/welcome"), 1000);
+        }
       }
     } catch (error: any) {
+      console.error("Signup error details:", error);
       toast.error(error.message || "Failed to sign up");
     } finally {
       setIsLoading(false);
@@ -94,10 +104,22 @@ const Auth = () => {
 
       if (data.user) {
         toast.success("Welcome back! 👋");
-        navigate("/dashboard");
+        // Add a small delay to ensure session is properly set
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 500);
       }
     } catch (error: any) {
-      toast.error(error.message || "Failed to log in");
+      console.error("Login error details:", error);
+      
+      // Specific error handling
+      if (error.message?.includes("Invalid login credentials")) {
+        toast.error("Invalid email or password");
+      } else if (error.message?.includes("Email not confirmed")) {
+        toast.error("Please verify your email address first");
+      } else {
+        toast.error(error.message || "Failed to log in");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -129,6 +151,7 @@ const Auth = () => {
                     value={signupData.fullName}
                     onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
                     required
+                    autoComplete="name"
                   />
                 </div>
                 <div className="space-y-2">
@@ -140,6 +163,7 @@ const Auth = () => {
                     value={signupData.email}
                     onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
                     required
+                    autoComplete="email"
                   />
                 </div>
                 <div className="space-y-2">
@@ -151,6 +175,8 @@ const Auth = () => {
                     value={signupData.password}
                     onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
                     required
+                    autoComplete="new-password"
+                    minLength={6}
                   />
                 </div>
                 <div className="space-y-2">
@@ -183,6 +209,7 @@ const Auth = () => {
                     value={loginData.email}
                     onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
                     required
+                    autoComplete="email"
                   />
                 </div>
                 <div className="space-y-2">
@@ -194,6 +221,7 @@ const Auth = () => {
                     value={loginData.password}
                     onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                     required
+                    autoComplete="current-password"
                   />
                 </div>
                 <Button 
